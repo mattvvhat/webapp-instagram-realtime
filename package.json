@@ -4,7 +4,9 @@
   "description": "Sample webapp running instagram-realtime.",
   "main": "index.js",
   "dependencies": {
-    "express": "*"
+    "express": "*",
+    "socket.io": "*",
+    "instagram-realtime": "*"
   },
   "scripts": {
     "start": "node index.js",
