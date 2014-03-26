@@ -8,22 +8,17 @@ var opts = require('./secrets.json');
 var stream = InstagramStream(app, opts);
 
 stream.on('unsubscribe', function (req, resp) {
-  console.log('unsubscribe'.green);
+  console.log('unsubscribe');
   stream.subscribe({ tag : 'yolo' });
 });
 stream.on('unsubscribe/error', function (error, req, resp) {
-  console.log('unsubscribe/error'.red);
+  console.log('unsubscribe/error');
 });
 stream.on('new', function (req, body) {
   console.log(body);
 });
 stream.on('subscribe/error', function (error, req, resp) {
-  console.log('subscribe/error'.red);
-});
-
-app.get('/', function (req, resp) {
-  resp.set('Content-Type', 'text/plain; charset=utf-8');
-  resp.end('🍕🏊');
+  console.log('subscribe/error');
 });
 
 stream.unsubscribe('all');
