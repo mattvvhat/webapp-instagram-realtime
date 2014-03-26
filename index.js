@@ -3,15 +3,22 @@ var app = require('express')();
 var InstagramStream = require('instagram-realtime');
 var opts = require('./secrets.json');
 
+// instagram-realtime
+
 var stream = InstagramStream(app, opts);
 
 stream.on('unsubscribe', function (req, resp) {
   console.log('unsubscribe'.green);
   stream.subscribe({ tag : 'yolo' });
 });
-
+stream.on('unsubscribe/error', function (error, req, resp) {
+  console.log('unsubscribe/error'.red);
+});
 stream.on('new', function (req, body) {
-    console.log(body);
+  console.log(body);
+});
+stream.on('subscribe/error', function (error, req, resp) {
+  console.log('subscribe/error'.red);
 });
 
 app.get('/', function (req, resp) {
@@ -21,6 +28,7 @@ app.get('/', function (req, resp) {
 
 stream.unsubscribe('all');
 
+// Express
 
 app.get('/', function(req, res) {
   res.end('you know');
