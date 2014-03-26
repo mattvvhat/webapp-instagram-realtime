@@ -18,7 +18,7 @@ stream.on('new', function (req, body) {
   console.log(body);
 });
 stream.on('subscribe/error', function (error, req, resp) {
-  console.log('subscribe/error');
+  console.log(error);
 });
 
 stream.unsubscribe('all');
