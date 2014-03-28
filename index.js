@@ -1,5 +1,7 @@
 var app     = require('express')();
 var server  = require('http').createServer(app).listen(process.env.PORT || 5000);
+var io      = require('socket.io').listen(server, { log : false })
+
 var InstagramStream = require('instagram-realtime');
 var secrets = require('./secrets.json');
 
@@ -23,6 +25,7 @@ stream.on('unsubscribe/error', function (error, req, resp) {
   console.log('unsubscribe/error');
   console.log(req.body);
 });
+
 stream.on('subscribe', function (req, resp) {
   console.log("subscribe");
   console.log(req.body);
@@ -31,19 +34,25 @@ stream.on('subscribe/error', function (error, req, resp) {
   console.log("subscribe/error");
   console.log(req.body);
 });
-stream.on('new', function (req, resp) {
+
+stream.on('new', function (req, body) {
   console.log('new');
-  console.log(req.body);
+  io.sockets.emit('new', JSON.stringify(req.body));
 });
-stream.on('new/error', function (req, resp) {
+stream.on('new/error', function (error, req, resp) {
   console.log('new/error');
   console.log(req.body);
 });
 
 stream.unsubscribe('all');
 
+// socket.io
+
+
+
 // Express
 
 app.get('/', function(req, res) {
-  res.end('you know');
+  res.render('index.jade', {});
+
 });

@@ -1,0 +1,83 @@
+doctype html
+html(lang="en")
+  head
+    title= whatever
+    style.
+      .bg {
+        z-index: -100;
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: white;
+      }
+      .bg > img, .bg > video, .bg > canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        min-width:  50%;
+        min-height: 50%;
+        max-width:  100%
+        max-height: 100%
+      }
+      .bg > canvas { z-index: -97; }
+      .bg > video { z-index: -98; }
+      .bg > img { z-index: -99; }
+    script(src="/socket.io/socket.io.js")
+  body
+
+    div.bg
+      video#vid-player
+
+    script(type="text/javascript").
+      console = console || { log : function () {} };
+
+      var url = 'http://instagram-realtime.herokuapp.com:80';
+      var socket = io.connect(url);
+      socket.on('new', function (body) {
+        change_channel(body);
+      });
+
+      function change_channel (body) {
+        var vid = document.getElementById('vid');
+        try {
+          data = JSON.parse(body).data;
+        }
+        catch (err) {
+          console.log(err);
+          console.log(body);
+          return;
+        }
+
+        for (var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          if (obj.type !== 'video') {
+            continue;
+          }
+          else if (obj.videos.low_resolution.url === vid.src) {
+            continue;
+          }
+          console.log('loading: ' + obj.videos.low_resolution.url);
+          vid.pause();
+
+          var newVid = document.createElement('video');
+          vid.src = obj.videos.low_resolution.url;
+          vid.volume = 0;
+          vid.play();
+          newVid.play();
+          newVid.volume = 0.;
+          newVid.addEventListener('canplaythrough', function () {
+            vid.src = newVid.src;
+            vid.volume = 0;
+            vid.play();
+            var n = new Notification('new video');
+            setTimeout(function () { n.close(); }, 2999);
+          });
+
+          break;
+        }
+      }

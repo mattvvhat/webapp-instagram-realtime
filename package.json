@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "*",
     "socket.io": "*",
-    "instagram-realtime": "*"
+    "instagram-realtime": "*",
+    "jade": "*"
   },
   "scripts": {
     "start": "node index.js",
