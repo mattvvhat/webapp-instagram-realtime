@@ -39,5 +39,3 @@ stream.unsubscribe('all');
 app.get('/', function(req, res) {
   res.end('you know');
 });
-
-app.listen(process.env.PORT || 5000);
