@@ -1,14 +1,14 @@
 var app     = require('express')();
 var server  = require('http').createServer(app).listen(process.env.PORT || 5000);
-
+var InstagramStream = require('instagram-realtime');
 var secrets = require('./secrets.json');
+
 var opts = {
   client_id     : secrets.client_id,
   client_secret : secrets.client_secret,
   url           : "http://instagram-realtime.herokuapp.com",
   callback_path : 'callback'
 };
-console.log(opts);
 
 // instagram-realtime
 
