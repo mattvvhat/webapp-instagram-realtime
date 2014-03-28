@@ -1,6 +1,13 @@
 var app = require('express')();
 var InstagramStream = require('instagram-realtime');
-var opts = require('./secrets.json');
+var secrets = require('./secrets.json');
+var opts = {
+  client_id     : secrets.client_id,
+  client_secret : secrets.client_secret,
+  url           : "http://instagram-realtime.herokuapp.com",
+  callback_path : 'callback'
+};
+console.log(opts);
 
 // instagram-realtime
 
@@ -21,7 +28,6 @@ stream.on('subscribe', function (req, resp) {
 });
 stream.on('subscribe/error', function (error, req, resp) {
   console.log("subscribe/error");
-  console.log(req);
   console.log(req.body);
 });
 
