@@ -21,11 +21,7 @@ stream.on('subscribe', function (req, resp) {
   console.log(error);
 });
 stream.on('subscribe/error', function (error, req, resp) {
-  console.log('<<<');
   console.log(error);
-  console.log(req);
-  console.log(resp);
-  console.log('>>>');
 });
 
 stream.unsubscribe('all');
