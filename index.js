@@ -1,4 +1,3 @@
-var url = require('url');
 var app = require('express')();
 var InstagramStream = require('instagram-realtime');
 var opts = require('./secrets.json');
@@ -18,10 +17,10 @@ stream.on('new', function (req, body) {
   console.log(body);
 });
 stream.on('subscribe', function (req, resp) {
-  console.log(error);
+  console.log("subscribe");
 });
 stream.on('subscribe/error', function (error, req, resp) {
-  console.log(error);
+  console.log("subscribe/error");
 });
 
 stream.unsubscribe('all');
