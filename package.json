@@ -1,12 +1,13 @@
 {
   "name": "instagram-realtime-driver",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Sample webapp running instagram-realtime.",
   "main": "index.js",
   "dependencies": {
+    "mongoose": "*",
     "express": "*",
     "socket.io": "*",
-    "instagram-realtime": "*",
+    "instagram-realtime": "0.0.4",
     "jade": "*"
   },
   "scripts": {
@@ -17,5 +18,6 @@
     "node": "0.10.x"
   },
   "author": "Matt Owen",
-  "license": "UNLICENSE"
+  "license": "UNLICENSE",
+  "subdomain": "irir"
 }
