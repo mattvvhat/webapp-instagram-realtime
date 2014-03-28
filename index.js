@@ -15,16 +15,16 @@ var stream = InstagramStream(app, opts);
 
 stream.on('unsubscribe', function (req, resp) {
   console.log('unsubscribe');
+  console.log(req.body);
   stream.subscribe({ tag : 'yolo' });
 });
 stream.on('unsubscribe/error', function (error, req, resp) {
   console.log('unsubscribe/error');
-});
-stream.on('new', function (req, body) {
-  console.log(body);
+  console.log(req.body);
 });
 stream.on('subscribe', function (req, resp) {
   console.log("subscribe");
+  console.log(req.body);
 });
 stream.on('subscribe/error', function (error, req, resp) {
   console.log("subscribe/error");
