@@ -1,5 +1,7 @@
-var app = require('express')();
-var InstagramStream = require('instagram-realtime');
+var app     = require('express')();
+var colors  = require('colors');
+var server  = require('http').createServer(app).listen(process.env.PORT || 5000);
+
 var secrets = require('./secrets.json');
 var opts = {
   client_id     : secrets.client_id,
@@ -11,7 +13,7 @@ console.log(opts);
 
 // instagram-realtime
 
-var stream = InstagramStream(app, opts);
+var stream = InstagramStream(server, opts);
 
 stream.on('unsubscribe', function (req, resp) {
   console.log('unsubscribe');
